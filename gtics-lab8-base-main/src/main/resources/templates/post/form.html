@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Post</title>
+</head>
+<body>
+<div class="container">
+
+    <h2 th:text="${post.idPost == 0? 'Nuevo Post' : 'Editar Post'}">Nuevo/Editar</h2>
+    <hr/>
+    <form method="post" th:action="@{'/post/guardar'}" th:object="${post}">
+        <input type="hidden" th:field="*{id_user}" />
+        <div class="form-group">
+            <label for="firstname">Titulo</label>
+            <input type="text" class="form-control" th:field="*{title}">
+        </div>
+        <div class="form-group">
+            <label for="Apellido">Resumen</label>
+            <input type="text" class="form-control" th:field="*{summary}">
+        </div>
+        <div class="form-group">
+            <label for="intro">Contenido</label>
+            <input type="text" class="form-control" th:field="*{content}">
+        </div>
+        <a th:href="@{'/user/list'}" class="btn btn-danger">Cancelar</a>
+        <button type="submit" class="btn btn-primary" th:text="${usuario.id_user == 0? 'Registrar' : 'Actualizar'}">Reg/act</button>
+    </form>
+</div>
+</body>
+</html>

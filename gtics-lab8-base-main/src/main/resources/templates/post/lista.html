@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:insert="base :: head(index)">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div align="center" style="width: 100px">
+    <h3>Lista de Post</h3>
+    <br>
+    <table class="items table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Nombre</th>
+            <th>Autor</th>
+            <th>Resumen</th>
+            <th></th>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${lista}">
+            <th th:text="${p.id_Post}"></th>
+            <th th:text="${p.title}"></th>
+            <th th:text="${p.user.firstname}"></th>
+            <th th:text="${p.content}"></th>
+            <th >
+                <a th:if="${session.rol.equals('admin')}"  th:href="@{'/post/borrar?id='+${p.id_Post}}" type="btn btn-danger" value="Borrar">
+                </a>
+            </th>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
