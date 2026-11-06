@@ -16,11 +16,17 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class WebSecurityConfig {
 
+    final DataSource dataSource;
+
+    public WebSecurityConfig(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.formLogin()
-                .loginPage("/loginForm")
+                .loginPage("/login")
                 .loginProcessingUrl("/processlogin")
                 .defaultSuccessUrl("/redirectByRol", true);
 
@@ -28,11 +34,11 @@ public class WebSecurityConfig {
                 .deleteCookies("JSESSIONID")
                 .invalidateHttpSession(true);
 
-        http.authorizeRequests().antMatchers("/user/list").hasAuthority("admin");
-        http.authorizeRequests().antMatchers("/post/delete").hasAuthority("admin");
-        http.authorizeRequests().antMatchers("/user", "/user/edit").hasAnyAuthority("user", "admin");
-        http.authorizeRequests().antMatchers("/post/create", "/post/edit").hasAnyAuthority("user", "admin");
-        http.authorizeRequests().anyRequest().permitAll();
+        http.authorizeHttpRequests()
+                .requestMatchers("/css/**", "/js/**", "/webfonts/**", "/login").permitAll()
+                .requestMatchers("/post/**").hasAnyAuthority("ADMIN", "USER")
+                .requestMatchers("/user/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated();
 
         return http.build();
     }

@@ -94,7 +94,8 @@ public class Usuario implements Serializable {
     private String profile;
     @Column(nullable = false)
     private boolean active;
+
     @ManyToOne(optional = false)
-    @JoinColumn(name = "id_role", nullable = false)
-    private Rol id_role;
+    @JoinColumn(name = "idrol", nullable = false)
+    private Rol idrol;
 }

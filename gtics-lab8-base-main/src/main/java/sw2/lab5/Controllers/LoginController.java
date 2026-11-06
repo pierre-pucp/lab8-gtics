@@ -15,6 +15,11 @@ public class LoginController {
     @Autowired
     UsuarioRepository usuarioRepository;
 
+    @GetMapping("/login")
+    public String loginForm() {
+        return "index";
+    }
+
     @GetMapping(value = "/redirectByRol")
     public String redirectByRole(Authentication auth, HttpSession httpSession) {
         String rol = "";

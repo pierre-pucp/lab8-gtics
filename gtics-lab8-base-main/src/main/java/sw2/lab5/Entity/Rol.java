@@ -1,32 +1,41 @@
 package sw2.lab5.Entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "role")
 public class Rol implements Serializable {
+
     @Id
-    private int id_role;
-    @NotBlank
-    private String role_name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idrol")
+    private int idrol;
 
-    public int getId_role() {
-        return id_role;
+    @Column(name = "nombre", nullable = false, length = 45)
+    private String nombre;
+
+    // Implémentation de GrantedAuthority pour Spring Security
+    @Override
+    public String getAuthority() {
+        return nombre;
     }
 
-    public void setId_role(int id_role) {
-        this.id_role = id_role;
+    // Getters et Setters
+    public int getIdrol() {
+        return idrol;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public void setIdrol(int idrol) {
+        this.idrol = idrol;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

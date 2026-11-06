@@ -51,6 +51,7 @@ public class PostController {
         model.addAttribute("lista",listapost);
         return "post/lista";
     }
+
     @GetMapping("/borrar")
     public String borrarpost(@RequestParam("id") int id){
         Optional<Post> opt=postRepository.findById(id);
